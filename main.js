@@ -47,15 +47,23 @@ const Song = mongoose.model('SongData', SongSchema)
 const app = express();
 
 app.get('/', (req, res) => {
-    res.json({data: {
-        version: "1.0.0",
-        release_date: "11/26/2020",
-        author: "Jordan Banta-Clark"
-    }})
+    res.json({
+        routes: [
+            "GET /: this route, dummy",
+            "GET /songs: get all songs",
+            "GET /song/:title: get specific song by title",
+            "GET /song/:title/source: get song audio file",
+            "POST /song: upload new song to database using multipart form data"
+        ]
+    })
 })
+        
 
 app.get('/songs/', (req, res) => {
     Song.find((err, songs) => {
+        if (songs.length > 0) {
+            res.json({err: "no songs found!"})
+        }
         res.json(songs)
     })
 })
