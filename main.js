@@ -4,6 +4,8 @@ const multer = require('multer')
 const GridFsStorage = require('multer-gridfs-storage')
 const Grid = require('gridfs-stream')
 
+const port = process.env.PORT || 5001;
+
 mongoose.connect('mongodb://localhost/musicdb', {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -101,4 +103,4 @@ app.get("/song/:title/source", (req, res) => {
     })
 })
 
-app.listen(3000)
+app.listen(port, () => console.log(`listening on ${port}`))
